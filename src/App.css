@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
 * {
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 nav {
@@ -9,7 +11,7 @@ nav {
   height: 70px;
   padding: 0px 20px;
   background-color: #115293;
-  border-bottom: 1px solid #F1F1F1;
+  border-bottom: 1px solid #f1f1f1;
 }
 nav a {
   color: #fff;

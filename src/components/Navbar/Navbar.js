@@ -31,7 +31,7 @@ function Navbar() {
         {user ? (
           <>
             <Link to="/profile">Profile</Link>
-            <IconButton aria-label="logout" onClick={handleSignOut}>
+            <IconButton aria-label="logout" style={{color:"#fff"}} onClick={handleSignOut}>
               <MeetingRoomIcon />
             </IconButton>
           </>

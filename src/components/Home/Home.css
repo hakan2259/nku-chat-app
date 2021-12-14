@@ -8,6 +8,25 @@
 }
 .users-container{
     margin-top: 10px;
-    border-right: 2px solid #F1F1F1;
+    border-right: 2px solid #EBEBEB;
     overflow-y: auto;
+}
+.messages-container{
+    position: relative;
+    width: 100%;
+}
+.messages-user{
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #EBEBEB;
+}
+.messages-user h3{
+    margin-left: 10px;
+}
+.no-conversation{
+    font-size: 20px;
+    color: #000;
+    opacity: 0.8;
+    text-align: center;
 }
