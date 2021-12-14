@@ -4,12 +4,21 @@ import "./Profile.css";
 import Paper from "@material-ui/core/Paper";
 import Camera from "../svg/Camera.js";
 import { storage, db, auth } from "../../firebase.js";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import {
+  ref,
+  getDownloadURL,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
+import Delete from "../svg/Delete";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
+  const navigate = useNavigate();
+
   console.log(img);
 
   useEffect(() => {
@@ -25,6 +34,9 @@ const Profile = () => {
           `avatar/${new Date().getTime()} - ${img.name}`
         );
         try {
+          if (user.avatarPath) {
+            await deleteObject(ref(storage, user.avatarPath));
+          }
           const snap = await uploadBytes(imgRef, img);
           const url = await getDownloadURL(ref(storage, snap.ref.fullPath));
           await updateDoc(doc(db, "users", auth.currentUser.uid), {
@@ -39,6 +51,22 @@ const Profile = () => {
       uploadImg();
     }
   }, [img]);
+
+  const deleteImage = async () => {
+    try {
+      const confirm = window.confirm("Delete avatar?");
+      if (confirm) {
+        await deleteObject(ref(storage, user.avatarPath));
+        await updateDoc(doc(db, "users", auth.currentUser.uid), {
+          avatar: "",
+          avatarPath: "",
+        });
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return user ? (
     <Paper
@@ -59,6 +87,7 @@ const Profile = () => {
               <label htmlFor="photo">
                 <Camera />
               </label>
+              {user?.avatar ? <Delete deleteImage={deleteImage} /> : null}
               <input
                 type="file"
                 accept="image/*"
@@ -73,7 +102,9 @@ const Profile = () => {
           <h3>{user?.name}</h3>
           <p>{user?.email}</p>
           <hr />
-          <small>Joined on: {new Date(user?.createdAt.toDate()).toDateString()}</small>
+          <small>
+            Joined on: {new Date(user?.createdAt.toDate()).toDateString()}
+          </small>
         </div>
       </div>
     </Paper>
