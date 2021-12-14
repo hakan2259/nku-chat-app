@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp/SignUp.js";
 import SignIn from "./components/SignIn/SignIn.js";
 import AuthProvider from "./context/auth.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -13,11 +14,14 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/" element={<Home />} />
+          </Route>
+          <Route exact path="/profile" element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<Profile />} />
+          </Route>
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />
-          <Route exact path='/' element={<PrivateRoute/>}>
-            <Route exact path='/' element={<Home/>}/>
-          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

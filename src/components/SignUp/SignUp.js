@@ -6,10 +6,12 @@ import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
+import BarWave from "react-cssfx-loading/lib/BarWave";
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase.js";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -67,7 +69,7 @@ function SignUp() {
       setPassword("");
       setError(null);
       setLoading(false);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -125,7 +127,7 @@ function SignUp() {
           variant="outlined"
           type="submit"
         >
-          {loading ? 'Creating ...' : 'Sign Up'}
+          {loading ? <BarWave color="#055FFB" duration="1s" /> : "Sign Up"}
         </Button>
       </CardActions>
     </Card>

@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
+import BouncingBalls from "react-cssfx-loading/lib/BouncingBalls";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase.js";
@@ -104,7 +105,14 @@ function SignIn() {
           variant="outlined"
           type="submit"
         >
-          {loading ? "Logging in ..." : "Sign In"}
+          {loading ? (
+            <BouncingBalls
+              color="#E45914"
+              duration="0.7s"
+            />
+          ) : (
+            "Sign In"
+          )}
         </Button>
       </CardActions>
     </Card>
