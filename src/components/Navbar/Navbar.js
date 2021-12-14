@@ -22,8 +22,11 @@ function Navbar() {
   return (
     <nav>
       <h3>
-        <Link to="/">NKU Chat App</Link>
+        <Link to="/">NKU ÇMF Chat App</Link>
+        <p style={{fontSize:12}}>{console.log(user)}</p>
+        
       </h3>
+     
       <div>
         {user ? (
           <>
