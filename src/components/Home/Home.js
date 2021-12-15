@@ -7,6 +7,7 @@ import {
   onSnapshot,
   addDoc,
   Timestamp,
+  orderBy,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
@@ -18,6 +19,7 @@ import "./Home.css";
 import Avatar from "@material-ui/core/Avatar";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MessageForm from "../MessageForm/MessageForm.js";
+import Message from "../Message/Message.js";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -33,6 +35,7 @@ function Home() {
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const user1 = auth.currentUser.uid;
 
@@ -52,7 +55,21 @@ function Home() {
   const selectUser = (user) => {
     setChat(user);
     console.log(user);
+
+    const user2 = user.uid;
+    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    const messagesRef = collection(db, "messages", id, "chat");
+    const q = query(messagesRef, orderBy("createdAt", "asc"));
+
+    onSnapshot(q, (querySnapshot) => {
+      let messages = [];
+      querySnapshot.forEach((doc) => {
+        messages.push(doc.data());
+      });
+      setMessages(messages);
+    });
   };
+  console.log(messages);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -108,6 +125,13 @@ function Home() {
               )}
 
               <h3>{chat?.name}</h3>
+            </div>
+            <div className="messages">
+              {messages.length
+                ? messages.map((message, i) => (
+                    <Message key={i} message={message} user1={user1} />
+                  ))
+                : null}
             </div>
             <MessageForm
               handleSubmit={handleSubmit}
