@@ -11,6 +11,11 @@
     border-right: 2px solid #EBEBEB;
     overflow-y: auto;
 }
+.users-container .users-title{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #EBEBEB;
+}
 .messages-container{
     position: relative;
     width: 100%;
@@ -19,7 +24,7 @@
     display: flex;
     padding: 10px;
     text-align: center;
-    border-bottom: 1px solid #EBEBEB;
+    border-bottom: 2px solid #EBEBEB;
 }
 .messages-user h3{
     margin-left: 10px;
