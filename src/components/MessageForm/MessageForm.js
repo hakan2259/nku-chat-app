@@ -1,5 +1,5 @@
 import React from "react";
-import Attachment from "../svg/Attachment";
+import Photo from "../svg/Photo";
 import "./MessageForm.css";
 
 import InputEmoji from "react-input-emoji";
@@ -8,7 +8,7 @@ const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
   return (
     <form className="message-form">
       <label htmlFor="img">
-        <Attachment />
+        <Photo />
       </label>
       <input
         onChange={(e) => setImg(e.target.files[0])}

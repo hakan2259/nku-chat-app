@@ -12,7 +12,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase.js";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { displayName } from "react-input-emoji";
 
 const useStyles = makeStyles({
   root: {

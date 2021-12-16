@@ -8,6 +8,10 @@ import {
   addDoc,
   Timestamp,
   orderBy,
+  setDoc,
+  doc,
+  getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
@@ -52,7 +56,7 @@ function Home() {
     return () => unsub();
   }, []);
 
-  const selectUser = (user) => {
+  const selectUser = async (user) => {
     setChat(user);
     console.log(user);
 
@@ -68,6 +72,13 @@ function Home() {
       });
       setMessages(messages);
     });
+
+    const docSnap = await getDoc(doc(db, "lastMessage", id));
+    if (docSnap.data()?.from !== user1) {
+      await updateDoc(doc(db, "lastMessage", id), {
+        unread: false,
+      });
+    }
   };
   console.log(messages);
 
@@ -93,6 +104,15 @@ function Home() {
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
     });
+
+    await setDoc(doc(db, "lastMessage", id), {
+      text,
+      from: user1,
+      to: user2,
+      createdAt: Timestamp.fromDate(new Date()),
+      media: url || "",
+      unread: true,
+    });
     setText("");
   };
 
@@ -104,7 +124,13 @@ function Home() {
           Messages
         </div>
         {users.map((user) => (
-          <User key={user.uid} user={user} selectUser={selectUser} />
+          <User
+            key={user.uid}
+            user={user}
+            selectUser={selectUser}
+            user1={user1}
+            chat={chat}
+          />
         ))}
       </div>
       <div className="messages-container">
