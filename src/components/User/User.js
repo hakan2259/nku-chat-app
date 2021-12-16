@@ -11,6 +11,13 @@ const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+    backgroundColor: "#01AEBC",
+  },
+  small: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+    paddingTop: 10,
+    backgroundColor: "#FF6347",
   },
 }));
 const User = ({ user, selectUser, user1, chat }) => {
@@ -27,33 +34,50 @@ const User = ({ user, selectUser, user1, chat }) => {
   }, []);
   console.log(data);
   return (
-    <div
-      className={`user-wrapper ${chat.name === user.name && "selected-user"}`}
-      onClick={() => selectUser(user)}
-    >
-      <div className="user-info">
-        <div className="user-detail">
-          <Avatar
-            alt={user?.name}
-            src={user?.avatar || Img}
-            className={classes.large}
-          />
-          <h4>{user?.name}</h4>
-          {data?.from !== user1 && data?.unread && (
-            <small className="unread">New</small>
-          )}
+    <>
+      <div
+        className={`user-wrapper ${chat.name === user.name && "selected-user"}`}
+        onClick={() => selectUser(user)}
+      >
+        <div className="user-info">
+          <div className="user-detail">
+            {user?.avatar ? (
+              <Avatar
+                alt={chat?.name}
+                src={chat.avatar}
+                className={classes.large}
+              />
+            ) : (
+              <Avatar className={classes.large}>
+                {user?.name.substring(0, 1).toUpperCase()}
+              </Avatar>
+            )}
+
+            <h4>{user?.name}</h4>
+            {data?.from !== user1 && data?.unread && (
+              <small className="unread">New</small>
+            )}
+          </div>
+          <div
+            className={`user-status ${user?.isOnline ? "online" : "offline"}`}
+          ></div>
         </div>
-        <div
-          className={`user-status ${user?.isOnline ? "online" : "offline"}`}
-        ></div>
+        {data && (
+          <p className="truncate">
+            <strong>{data.from === user1 ? "Me:" : null}</strong>
+            {data.text}
+          </p>
+        )}
       </div>
-      {data && (
-        <p className="truncate">
-          <strong>{data.from === user1 ? "Me:" : null}</strong>
-          {data.text}
-        </p>
-      )}
-    </div>
+      <div
+        onClick={() => selectUser(user)}
+        className={`sm-container ${chat.name === user.name && "selected-user"}`}
+      >
+        <Avatar className={`${classes.small} sm-screen`}>
+          {user?.name.substring(0, 1).toUpperCase()}
+        </Avatar>
+      </div>
+    </>
   );
 };
 

@@ -62,3 +62,19 @@
     padding: 2px 4px;
     border-radius: 10px;
 }
+.sm-container > .MuiAvatar-root{
+    display: none;
+}
+@media screen and (max-width:576px){
+    .user-wrapper{
+        display: none;
+    }
+    .sm-container{
+        padding: 10px 0px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .sm-container > .MuiAvatar-root{
+        display: inline-block;
+    }
+}

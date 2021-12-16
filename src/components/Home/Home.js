@@ -74,7 +74,7 @@ function Home() {
     });
 
     const docSnap = await getDoc(doc(db, "lastMessage", id));
-    if (docSnap.data()?.from !== user1) {
+    if (docSnap.data() && docSnap.data()?.from !== user1) {
       await updateDoc(doc(db, "lastMessage", id), {
         unread: false,
       });
@@ -87,6 +87,7 @@ function Home() {
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
     let url;
+
     if (img) {
       const imgRef = ref(
         storage,
@@ -104,6 +105,7 @@ function Home() {
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
     });
+    setImg("");
 
     await setDoc(doc(db, "lastMessage", id), {
       text,

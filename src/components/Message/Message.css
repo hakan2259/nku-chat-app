@@ -32,3 +32,16 @@
 .friend {
   background: #ffffff;
 }
+@media screen and (max-width:768px){
+  .message-wrapper p{
+    max-width: 75%;
+  }
+}
+@media screen and (max-width:576px){
+  .message-wrapper p{
+    max-width: 75%;
+  }
+  .message-wrapper.own {
+    text-align: left;
+  }
+}

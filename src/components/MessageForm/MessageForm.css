@@ -7,7 +7,7 @@
     align-items: center;
 }
 .react-input-emoji--input{
-    width: 65vw !important; 
+    width: 61vw !important; 
 }
 .message-form .message-form-btn{
     color: #fff;
@@ -21,4 +21,30 @@
 }
 .message-form .message-form-btn:hover{
     background-color: #115293;
+}
+
+@media screen and (max-width:1024px){
+    .react-input-emoji--input{
+        width: 60vw !important; 
+    }
+}
+@media screen and (max-width:768px){
+    .react-input-emoji--input{
+        width: 48vw !important; 
+    }
+}
+@media screen and (max-width:576px){
+    .react-input-emoji--input{
+        width: 48vw !important; 
+    }
+}
+@media screen and (max-width:360px){
+    .react-input-emoji--input{
+        width: 46vw !important; 
+    }
+}
+@media screen and (max-width:320px){
+    .react-input-emoji--input{
+        width: 42vw !important; 
+    }
 }

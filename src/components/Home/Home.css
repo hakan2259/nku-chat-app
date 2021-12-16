@@ -1,42 +1,57 @@
-.home-container{
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    overflow: hidden;
-    height: calc(100vh - 70px);
-    width: 100vw;
+.home-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  overflow: hidden;
+  height: calc(100vh - 70px);
+  width: 100vw;
 }
-.users-container{
-    margin-top: 10px;
-    border-right: 2px solid #EBEBEB;
-    overflow-y: auto;
+.users-container {
+  margin-top: 10px;
+  border-right: 2px solid #ebebeb;
+  overflow-y: auto;
 }
-.users-container .users-title{
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid #EBEBEB;
+.users-container .users-title {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ebebeb;
 }
-.messages-container{
-    position: relative;
-    width: 100%;
+.messages-container {
+  position: relative;
+  width: 100%;
 }
-.messages-user{
-    display: flex;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 2px solid #EBEBEB;
+.messages-user {
+  display: flex;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 2px solid #ebebeb;
 }
-.messages-user h3{
-    margin-left: 10px;
+.messages-user h3 {
+  margin-left: 10px;
 }
-.no-conversation{
-    font-size: 20px;
-    color: #000;
-    opacity: 0.8;
-    text-align: center;
+.no-conversation {
+  font-size: 20px;
+  color: #000;
+  opacity: 0.8;
+  text-align: center;
 }
-.messages{
-    height: calc(100vh - 220px);
-    overflow-y: auto;
-    border-bottom: 1px solid #EBEBEB;
+.messages {
+  height: calc(100vh - 220px);
+  overflow-y: auto;
+  border-bottom: 1px solid #ebebeb;
+}
+
+@media screen and (max-width: 768px) {
+  .home-container {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .home-container {
+    grid-template-columns: 1fr 5fr;
+  }
+  .users-container .users-title {
+    display: none;
+  }
 }

@@ -1,10 +1,22 @@
 import React from "react";
 import Photo from "../svg/Photo";
 import "./MessageForm.css";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from '@material-ui/core/IconButton';
+
 
 import InputEmoji from "react-input-emoji";
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
+  const classes = useStyles();
   return (
     <form className="message-form">
       <label htmlFor="img">
@@ -26,6 +38,9 @@ const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
           placeholder="Type a message"
         />
       </div>
+      <IconButton aria-label="delete" onClick={handleSubmit}>
+        <SendIcon />
+      </IconButton>
     </form>
   );
 };
