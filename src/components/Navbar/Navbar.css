@@ -1,0 +1,15 @@
+.navbar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar .navbar-current-user-container{
+    display: flex;
+}
+.navbar .navbar-current-user-container span{
+    margin-top: 5px;
+}
+.navbar .navbar-current-user{
+    font-size: 14px;
+    margin: 5px 0 0 10px;
+}

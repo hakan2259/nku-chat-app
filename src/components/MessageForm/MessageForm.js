@@ -2,11 +2,11 @@ import React from "react";
 import Attachment from "../svg/Attachment";
 import "./MessageForm.css";
 
-import Button from "@material-ui/core/Button";
+import InputEmoji from "react-input-emoji";
 
 const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
   return (
-    <form className="message-form" onSubmit={handleSubmit}>
+    <form className="message-form">
       <label htmlFor="img">
         <Attachment />
       </label>
@@ -18,15 +18,13 @@ const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
         style={{ display: "none" }}
       />
       <div>
-        <input
-          type="text"
-          placeholder="Enter message"
+        <InputEmoji
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={setText}
+          onEnter={handleSubmit}
+          cleanOnEnter
+          placeholder="Type a message"
         />
-      </div>
-      <div>
-        <button className="message-form-btn">Send</button>
       </div>
     </form>
   );

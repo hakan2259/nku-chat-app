@@ -72,7 +72,6 @@ function Home() {
   console.log(messages);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
     const user2 = chat.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
@@ -120,7 +119,7 @@ function Home() {
                 />
               ) : (
                 <Avatar className={classes.large}>
-                  {chat?.name.substring(0, 1)}
+                  {chat?.name.substring(0, 1).toUpperCase()}
                 </Avatar>
               )}
 
