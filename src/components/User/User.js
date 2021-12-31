@@ -4,13 +4,14 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../../firebase.js";
+import Photo from '../svg/Photo.js';
 
 import "./User.css";
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: theme.spacing(5),
+    height: theme.spacing(5),
     backgroundColor: "#01AEBC",
   },
   small: {
@@ -65,7 +66,7 @@ const User = ({ user, selectUser, user1, chat }) => {
         {data && (
           <p className="truncate">
             <strong>{data.from === user1 ? "Me:" : null}</strong>
-            {data.text}
+            {data?.media ? null : data.text}
           </p>
         )}
       </div>

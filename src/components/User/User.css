@@ -1,80 +1,84 @@
-.user-wrapper{
-    margin-bottom: 10px;
-    padding: 10px;
-    cursor: pointer;
-
+.user-wrapper {
+  margin-bottom: 2px;
+  padding: 10px;
+  cursor: pointer;
 }
-.user-wrapper:hover{
-    background: #EBEBEB;
+.user-wrapper:hover {
+  background: #ebebeb;
 }
-.user-info{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.user-detail{
-    display: flex;
-    align-items: center;
-
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.user-detail h4{
-    margin-left: 10px;
+.user-detail {
+  display: flex;
+  align-items: center;
 }
-.selected-user{
-    background: #EBEBEB;
+
+.user-detail h4 {
+  margin-left: 10px;
+  font-size: 14px;
 }
-.avatar{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #EBEBEB;
+.user-detail small {
+  font-size: 12px;
 }
-.avatar:hover{
-    opacity: 0.7;
+.selected-user {
+  background: #ebebeb;
 }
-.user-status{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #ebebeb;
 }
-.online{
-    background: #32CD32;
+.avatar:hover {
+  opacity: 0.7;
 }
-.offline{
-    background: #B22222;
+.user-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
-.truncate{
-    font-size: 14px;
-    white-space: nowrap;
-    width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.online {
+  background: #32cd32;
 }
-.truncate strong{
-    margin-right: 10px;
+.offline {
+  background: #b22222;
 }
-.unread{
-    margin-left: 10px;
-    background: blue;
-    color: #fff;
-    padding: 2px 4px;
-    border-radius: 10px;
+.truncate {
+  margin-top: -3px;
+  margin-bottom: -3px;
+  font-size: 10px;
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.sm-container > .MuiAvatar-root{
+.truncate strong {
+  margin-right: 10px;
+}
+.unread {
+  margin-left: 10px;
+  background: blue;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 10px;
+}
+.sm-container > .MuiAvatar-root {
+  display: none;
+}
+@media screen and (max-width: 576px) {
+  .user-wrapper {
     display: none;
-}
-@media screen and (max-width:576px){
-    .user-wrapper{
-        display: none;
-    }
-    .sm-container{
-        padding: 10px 0px;
-        text-align: center;
-        cursor: pointer;
-    }
-    .sm-container > .MuiAvatar-root{
-        display: inline-block;
-    }
+  }
+  .sm-container {
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .sm-container > .MuiAvatar-root {
+    display: inline-block;
+  }
 }

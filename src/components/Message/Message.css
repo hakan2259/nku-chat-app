@@ -1,6 +1,7 @@
 .message-wrapper {
   margin-top: 5px;
   padding: 0 5px;
+  margin-bottom: -30px;
 }
 .message-wrapper p {
   font-size: 14px;
@@ -24,6 +25,10 @@
 }
 .message-wrapper.own {
   text-align: right;
+}
+.modal-image{
+  width: 150px;
+  height: 100%;
 }
 .me {
   background: #01aebc;

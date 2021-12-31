@@ -27,8 +27,8 @@ import Message from "../Message/Message.js";
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: theme.spacing(5),
+    height: theme.spacing(5),
     backgroundColor: "#dd6b20",
   },
 }));
@@ -39,6 +39,7 @@ function Home() {
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
+  const [video, setVideo] = useState("");
   const [messages, setMessages] = useState([]);
 
   const user1 = auth.currentUser.uid;
@@ -87,6 +88,7 @@ function Home() {
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
     let url;
+    let videoUrl;
 
     if (img) {
       const imgRef = ref(
@@ -98,12 +100,23 @@ function Home() {
       url = dlUrl;
     }
 
+    if (video) {
+      const videoRef = ref(
+        storage,
+        `videos/${new Date().getTime()} - ${video.name}`
+      );
+      const snap = await uploadBytes(videoRef, video);
+      const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+      videoUrl = dlUrl;
+    }
+
     await addDoc(collection(db, "messages", id, "chat"), {
       text,
       from: user1,
       to: user2,
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
+      video: videoUrl || "",
     });
     setImg("");
 
@@ -113,6 +126,7 @@ function Home() {
       to: user2,
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
+      video: videoUrl || "",
       unread: true,
     });
     setText("");
@@ -165,6 +179,7 @@ function Home() {
               text={text}
               setText={setText}
               setImg={setImg}
+              setVideo={setVideo}
             />
           </>
         ) : (

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Moment from "react-moment";
 import ModalImage from "react-modal-image";
+import ReactPlayer from "react-player";
 import "./Message.css";
 
 const Message = ({ message, user1 }) => {
@@ -27,6 +28,13 @@ const Message = ({ message, user1 }) => {
           />
         ) : null}
         {message?.media ? <br /> : ""}
+
+        {message?.video ? (
+          <ReactPlayer url={message?.video} 
+          width="300px" 
+          height="300px" 
+          controls />
+        ) : null}
         {message?.text}
         <br />
         <small>
