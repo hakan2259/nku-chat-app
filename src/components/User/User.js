@@ -33,7 +33,7 @@ const User = ({ user, selectUser, user1, chat }) => {
     });
     return () => unsub();
   }, []);
-  console.log(data);
+ 
   return (
     <>
       <div
@@ -66,7 +66,7 @@ const User = ({ user, selectUser, user1, chat }) => {
         {data && (
           <p className="truncate">
             <strong>{data.from === user1 ? "Me:" : null}</strong>
-            {data?.media ? null : data.text}
+            {data?.media ? "Picture" : data?.video ? "Video" : data.text}
           </p>
         )}
       </div>

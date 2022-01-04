@@ -25,26 +25,31 @@
 
 @media screen and (max-width:1024px){
     .react-input-emoji--input{
-        width: 60vw !important; 
+        width: 57vw !important; 
     }
 }
 @media screen and (max-width:768px){
     .react-input-emoji--input{
-        width: 48vw !important; 
+        width: 45vw !important; 
     }
 }
 @media screen and (max-width:576px){
     .react-input-emoji--input{
-        width: 48vw !important; 
+        width: 54vw !important; 
     }
 }
-@media screen and (max-width:360px){
+@media screen and (max-width:414px){
     .react-input-emoji--input{
-        width: 46vw !important; 
+        width: 58vw !important; 
+    }
+}
+@media screen and (max-width:375px){
+    .react-input-emoji--input{
+        width: 54vw !important; 
     }
 }
 @media screen and (max-width:320px){
     .react-input-emoji--input{
-        width: 42vw !important; 
+        width: 46vw !important; 
     }
 }

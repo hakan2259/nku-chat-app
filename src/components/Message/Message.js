@@ -27,12 +27,12 @@ const Message = ({ message, user1 }) => {
             alt={message?.text}
           />
         ) : null}
-        {message?.media ? <br /> : ""}
+       
 
         {message?.video ? (
           <ReactPlayer url={message?.video} 
-          width="300px" 
-          height="300px" 
+          width="400px" 
+          height="250px" 
           controls />
         ) : null}
         {message?.text}

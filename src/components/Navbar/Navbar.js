@@ -27,7 +27,7 @@ function Navbar() {
     <nav>
       <h3 className="navbar">
         <Link to="/">NKU ÇMF Chat App</Link>
-        {console.log(user)}
+       
       </h3>
 
       <div>

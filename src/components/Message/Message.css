@@ -27,7 +27,7 @@
   text-align: right;
 }
 .modal-image{
-  width: 150px;
+  width: 200px;
   height: 100%;
 }
 .me {
@@ -37,9 +37,21 @@
 .friend {
   background: #ffffff;
 }
+@media screen and (max-width:1024px){
+  video{
+    width: 355px !important;
+    height: 100% !important;
+    margin-top: 10px;
+  }
+}
 @media screen and (max-width:768px){
   .message-wrapper p{
     max-width: 75%;
+  }
+  video{
+    width: 354px !important;
+    height: 100% !important;
+    margin-top: 10px;
   }
 }
 @media screen and (max-width:576px){
@@ -48,5 +60,33 @@
   }
   .message-wrapper.own {
     text-align: left;
+  }
+  video{
+    width: 296px !important;
+    height: 100% !important;
+    margin-top: -10px;
+  }
+  
+}
+@media screen and (max-width:540px){
+  video{
+    width: 310px !important;
+    height: 100% !important;
+    margin-top: -10px;
+  }
+}
+@media screen and (max-width:414px){
+  video{
+    width: 294px !important;
+    height: 100% !important;
+    margin-top: -10px;
+  }
+}
+@media screen and (max-width:375px){
+  video{
+    width: 294px !important;
+    height: 100% !important;
+    margin-top: -10px;
+    margin-bottom: -40px;
   }
 }

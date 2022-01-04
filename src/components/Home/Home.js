@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { db, auth, storage } from "../../firebase.js";
 import {
   collection,
@@ -17,13 +17,23 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 import User from "../User/User.js";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 import "./Home.css";
 
 import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import DuoIcon from "@material-ui/icons/Duo";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MessageForm from "../MessageForm/MessageForm.js";
 import Message from "../Message/Message.js";
+
+import Peer from "peerjs";
+import VideoCall from "../VideoCall/VideoCall.js";
+import { useNavigate } from "react-router-dom";
+
+import Grid from "@material-ui/core/Grid";
+import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -41,8 +51,15 @@ function Home() {
   const [img, setImg] = useState("");
   const [video, setVideo] = useState("");
   const [messages, setMessages] = useState([]);
+  const [videoCallDisabled, setVideoCallDisabled] = useState(false);
 
   const user1 = auth.currentUser.uid;
+
+  const remoteVideoRef = useRef(null);
+  const currentUserVideoRef = useRef(null);
+  const peerInstance = useRef(null);
+  let navigate = useNavigate();
+  var currentCall;
 
   useEffect(() => {
     const usersRef = collection(db, "users");
@@ -54,12 +71,71 @@ function Home() {
       });
       setUsers(users);
     });
+
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    const peer = new Peer();
+    peer.on("open", (id) => {
+      const updateUser = async () => {
+        await updateDoc(doc(db, "users", auth.currentUser.uid), {
+          peerId: id,
+        });
+      };
+      updateUser();
+    });
+
+    peer.on("call", (call) => {
+      var getUserMedia =
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;
+      getUserMedia({ video: true, audio: true }, (mediaStream) => {
+        currentUserVideoRef.current.srcObject = mediaStream;
+        currentUserVideoRef.current.play();
+        call.answer(mediaStream);
+        call.on("stream", (remoteStream) => {
+          remoteVideoRef.current.srcObject = remoteStream;
+          remoteVideoRef.current.play();
+        });
+        
+
+      });
+    });
+
+    peerInstance.current = peer;
+  }, []);
+
+  const call = (remotePeerId) => {
+    var getUserMedia =
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia;
+    getUserMedia({ video: true, audio: true }, (mediaStream) => {
+      currentUserVideoRef.current.srcObject = mediaStream;
+      currentUserVideoRef.current.play();
+
+      const call = peerInstance.current.call(remotePeerId, mediaStream);
+      call.on("stream", (remoteStream) => {
+        remoteVideoRef.current.srcObject = remoteStream;
+        remoteVideoRef.current.play();
+        
+        
+      });
+     
+      
+    });
+    setVideoCallDisabled(true);
+  };
+
+  const videoDisabled = () => {
+    setVideoCallDisabled(false);
+    
+    
+  };
   const selectUser = async (user) => {
     setChat(user);
-    console.log(user);
 
     const user2 = user.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
@@ -81,7 +157,6 @@ function Home() {
       });
     }
   };
-  console.log(messages);
 
   const handleSubmit = async (e) => {
     const user2 = chat.uid;
@@ -119,6 +194,7 @@ function Home() {
       video: videoUrl || "",
     });
     setImg("");
+    setVideo("");
 
     await setDoc(doc(db, "lastMessage", id), {
       text,
@@ -149,6 +225,18 @@ function Home() {
           />
         ))}
       </div>
+      <div className="video-grid">
+        <Grid container>
+          <Grid item xs={5}>
+            <video ref={currentUserVideoRef} />
+          </Grid>
+          <Grid item xs>
+            <video ref={remoteVideoRef} />
+          </Grid>
+        </Grid>
+        
+      </div>
+
       <div className="messages-container">
         {chat ? (
           <>
@@ -166,7 +254,16 @@ function Home() {
               )}
 
               <h3>{chat?.name}</h3>
+
+              <IconButton
+                onClick={() => call(chat?.peerId)}
+                aria-label="video-call"
+                style={{ color: "#115293", zIndex: 3 }}
+              >
+                <DuoIcon style={{ fontSize: 35 }} />
+              </IconButton>
             </div>
+
             <div className="messages">
               {messages.length
                 ? messages.map((message, i) => (

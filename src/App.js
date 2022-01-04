@@ -7,6 +7,7 @@ import SignIn from "./components/SignIn/SignIn.js";
 import AuthProvider from "./context/auth.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Profile from "./components/Profile/Profile";
+import VideoCall from './components/VideoCall/VideoCall.js';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route exact path="/profile" element={<PrivateRoute />}>
             <Route exact path="/profile" element={<Profile />} />
+          </Route>
+          <Route exact path="/video-call" element={<PrivateRoute />}>
+            <Route exact path="/video-call" element={<VideoCall />} />
           </Route>
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />

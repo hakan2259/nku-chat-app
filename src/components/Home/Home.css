@@ -27,10 +27,12 @@
   text-align: center;
   align-items: center;
   border-bottom: 2px solid #ebebeb;
+  justify-content : flex-end;
 }
 .messages-user h3 {
   margin-left: 10px;
   font-size: 14px;
+  margin-right: auto;
 }
 .no-conversation {
   font-size: 20px;
@@ -42,6 +44,19 @@
   height: calc(100vh - 190px);
   overflow-y: auto;
   border-bottom: 1px solid #ebebeb;
+}
+.video-grid{
+  position: absolute;
+  right: 0;
+  z-index:2;
+}
+.video-invisible{
+  transition: display 5s;
+  display: none !important;
+}
+.video-visible{
+ 
+  display: inline-block !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -58,3 +73,4 @@
     display: none;
   }
 }
+
