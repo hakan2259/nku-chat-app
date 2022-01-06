@@ -34,6 +34,7 @@ import { useNavigate } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
+import CryptoJS from "crypto-js";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -99,8 +100,6 @@ function Home() {
           remoteVideoRef.current.srcObject = remoteStream;
           remoteVideoRef.current.play();
         });
-        
-
       });
     });
 
@@ -120,19 +119,13 @@ function Home() {
       call.on("stream", (remoteStream) => {
         remoteVideoRef.current.srcObject = remoteStream;
         remoteVideoRef.current.play();
-        
-        
       });
-     
-      
     });
     setVideoCallDisabled(true);
   };
 
   const videoDisabled = () => {
     setVideoCallDisabled(false);
-    
-    
   };
   const selectUser = async (user) => {
     setChat(user);
@@ -158,6 +151,17 @@ function Home() {
     }
   };
 
+  // Encrypt
+  const encryptMessage = (text) => {
+    return CryptoJS.AES.encrypt(text, "Secret Passphrase").toString();
+  };
+
+  //Decrypt
+  const decryptMessage = (text) => {
+    var bytes = CryptoJS.AES.decrypt(text, "Secret Passphrase");
+    return bytes.toString(CryptoJS.enc.Utf8);
+  };
+
   const handleSubmit = async (e) => {
     const user2 = chat.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
@@ -172,7 +176,7 @@ function Home() {
       );
       const snap = await uploadBytes(imgRef, img);
       const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-      url = dlUrl;
+      url = encryptMessage(dlUrl);
     }
 
     if (video) {
@@ -182,11 +186,11 @@ function Home() {
       );
       const snap = await uploadBytes(videoRef, video);
       const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-      videoUrl = dlUrl;
+      videoUrl = encryptMessage(dlUrl);
     }
 
     await addDoc(collection(db, "messages", id, "chat"), {
-      text,
+      text: encryptMessage(text),
       from: user1,
       to: user2,
       createdAt: Timestamp.fromDate(new Date()),
@@ -197,7 +201,7 @@ function Home() {
     setVideo("");
 
     await setDoc(doc(db, "lastMessage", id), {
-      text,
+      text: encryptMessage(text),
       from: user1,
       to: user2,
       createdAt: Timestamp.fromDate(new Date()),
@@ -222,6 +226,7 @@ function Home() {
             selectUser={selectUser}
             user1={user1}
             chat={chat}
+            decryptMessage = {decryptMessage}
           />
         ))}
       </div>
@@ -234,7 +239,6 @@ function Home() {
             <video ref={remoteVideoRef} />
           </Grid>
         </Grid>
-        
       </div>
 
       <div className="messages-container">
@@ -267,7 +271,7 @@ function Home() {
             <div className="messages">
               {messages.length
                 ? messages.map((message, i) => (
-                    <Message key={i} message={message} user1={user1} />
+                    <Message key={i} message={message} decryptMessage={decryptMessage} user1={user1} />
                   ))
                 : null}
             </div>

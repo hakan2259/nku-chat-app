@@ -4,7 +4,7 @@ import ModalImage from "react-modal-image";
 import ReactPlayer from "react-player";
 import "./Message.css";
 
-const Message = ({ message, user1 }) => {
+const Message = ({ message, user1, decryptMessage }) => {
   const scrollRef = useRef();
   useEffect(() => {
     scrollRef.current?.scrollIntoView({
@@ -20,22 +20,22 @@ const Message = ({ message, user1 }) => {
         {message?.media ? (
           <ModalImage
             className="modal-image"
-            small={message?.media}
-            medium={message?.media}
-            large={message?.media}
+            small={decryptMessage(message?.media)}
+            medium={decryptMessage(message?.media)}
+            large={decryptMessage(message?.media)}
             showRotate="true"
-            alt={message?.text}
+            alt={decryptMessage(message?.text)}
           />
         ) : null}
        
 
         {message?.video ? (
-          <ReactPlayer url={message?.video} 
+          <ReactPlayer url={decryptMessage(message?.video)} 
           width="400px" 
           height="250px" 
           controls />
         ) : null}
-        {message?.text}
+        {decryptMessage(message?.text)}
         <br />
         <small>
           <Moment fromNow>{message?.createdAt.toDate()}</Moment>

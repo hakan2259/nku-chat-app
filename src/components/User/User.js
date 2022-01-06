@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FF6347",
   },
 }));
-const User = ({ user, selectUser, user1, chat }) => {
+const User = ({ user, selectUser, user1, chat, decryptMessage }) => {
   const classes = useStyles();
   const user2 = user?.uid;
   const [data, setData] = useState("");
@@ -66,7 +66,7 @@ const User = ({ user, selectUser, user1, chat }) => {
         {data && (
           <p className="truncate">
             <strong>{data.from === user1 ? "Me:" : null}</strong>
-            {data?.media ? "Picture" : data?.video ? "Video" : data.text}
+            {data?.media ? "Picture" : data?.video ? "Video" : decryptMessage(data?.text)}
           </p>
         )}
       </div>
